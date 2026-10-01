@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Multi-Planner | Home, Party & Jewelry by Gemini 1.5</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+  <div class="app-background-glow glow-1"></div>
+  <div class="app-background-glow glow-2"></div>
+
+  <div class="app-container">
+    <!-- Header -->
+    <header class="app-header">
+      <div class="brand">
+        <div class="brand-badge">⚡ Powered by Gemini 1.5</div>
+        <h1 class="brand-title">AI Multi-Planner <span class="gradient-text">Studio</span></h1>
+        <p class="brand-subtitle">Hyper-personalized curation for interiors, celebrations, and jewelry styling—strictly within your budget.</p>
+      </div>
+
+      <div class="system-status" id="system-status-badge">
+        <span class="status-indicator"></span>
+        <span id="status-text">Checking AI connection...</span>
+      </div>
+    </header>
+
+    <!-- Navigation Tabs -->
+    <nav class="planner-tabs" role="tablist" aria-label="Planner Options">
+      <button class="tab-btn active" role="tab" id="tab-home" aria-selected="true" aria-controls="section-home">
+        <span class="tab-icon">🛋️</span>
+        <span class="tab-label">Home Interior</span>
+      </button>
+      <button class="tab-btn" role="tab" id="tab-party" aria-selected="false" aria-controls="section-party">
+        <span class="tab-icon">🎉</span>
+        <span class="tab-label">Party & Event</span>
+      </button>
+      <button class="tab-btn" role="tab" id="tab-jewelry" aria-selected="false" aria-controls="section-jewelry">
+        <span class="tab-icon">💎</span>
+        <span class="tab-label">Jewelry & Outfit</span>
+      </button>
+    </nav>
+
+    <!-- Main Workspace -->
+    <main class="planner-workspace">
+      <!-- 1. HOME INTERIOR PLANNER -->
+      <section class="planner-section active" id="section-home" role="tabpanel" aria-labelledby="tab-home">
+        <div class="form-card glass-panel">
+          <div class="card-header">
+            <h2>Design Your Space</h2>
+            <p>Tell us your room layout, preferred aesthetic, and budget limit.</p>
+          </div>
+          <form id="form-home" class="planner-form">
+            <div class="form-grid">
+              <div class="form-group">
+                <label for="home-room-type">Room Type</label>
+                <select id="home-room-type" name="room_type" required>
+                  <option value="Living Room" selected>Living Room</option>
+                  <option value="Master Bedroom">Master Bedroom</option>
+                  <option value="Home Office / Studio">Home Office / Studio</option>
+                  <option value="Dining Room">Dining Room</option>
+                  <option value="Studio Apartment">Compact Studio</option>
+                  <option value="Guest Bedroom">Guest Bedroom</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="home-style">Design Aesthetic</label>
+                <select id="home-style" name="style" required>
+                  <option value="Modern Minimalist" selected>Modern Minimalist</option>
+                  <option value="Scandinavian & Cozy">Scandinavian & Cozy</option>
+                  <option value="Industrial Loft">Industrial Loft</option>
+                  <option value="Japandi">Japandi (Japanese + Scandinavian)</option>
+                  <option value="Bohemian Eclectic">Bohemian Eclectic</option>
+                  <option value="Mid-Century Modern">Mid-Century Modern</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="home-dimensions">Room Dimensions / Size</label>
+                <input type="text" id="home-dimensions" name="dimensions" placeholder="e.g. 15ft x 12ft (180 sq ft)" value="15ft x 14ft">
+              </div>
+
+              <div class="form-group">
+                <label for="home-budget">Maximum Budget ($ USD): <strong id="home-budget-display">$1,500</strong></label>
+                <input type="range" id="home-budget" name="budget" min="200" max="10000" step="50" value="1500">
+              </div>
+            </div>
+
+            <div class="form-group full-width">
+              <label for="home-notes">Specific Requests or Priorities</label>
+              <textarea id="home-notes" name="extra_notes" rows="2" placeholder="e.g. Need space for 2 monitors, pet-friendly fabric, prefer warm lighting."></textarea>
+            </div>
+
+            <button type="submit" class="submit-btn" id="btn-submit-home">
+              <span class="btn-text">Generate Interior Proposal</span>
+              <span class="btn-spinner hidden"></span>
+            </button>
+          </form>
+        </div>
+      </section>
+
+      <!-- 2. PARTY PLANNER -->
+      <section class="planner-section" id="section-party" role="tabpanel" aria-labelledby="tab-party">
+        <div class="form-card glass-panel">
+          <div class="card-header">
+            <h2>Plan Your Celebration</h2>
+            <p>Coordinate catering, decor, and an itinerary that delights your guests within budget.</p>
+          </div>
+          <form id="form-party" class="planner-form">
+            <div class="form-grid">
+              <div class="form-group">
+                <label for="party-event-type">Event Type</label>
+                <select id="party-event-type" name="event_type" required>
+                  <option value="Birthday Party" selected>Birthday Party</option>
+                  <option value="Anniversary Celebration">Anniversary Celebration</option>
+                  <option value="Cocktail & Games Night">Cocktail & Games Night</option>
+                  <option value="Housewarming Gathering">Housewarming Gathering</option>
+                  <option value="Graduation Dinner">Graduation Dinner</option>
+                  <option value="Kids Theme Party">Kids Theme Party</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="party-theme">Theme / Vibe</label>
+                <input type="text" id="party-theme" name="theme" placeholder="e.g. Retro Neon, Elegant Pastel, Boho Chic" value="Golden Hour Chic">
+              </div>
+
+              <div class="form-group">
+                <label for="party-guests">Guest Count: <strong id="party-guests-display">25 Guests</strong></label>
+                <input type="range" id="party-guests" name="guest_count" min="4" max="150" step="1" value="25">
+              </div>
+
+              <div class="form-group">
+                <label for="party-budget">Total Budget ($ USD): <strong id="party-budget-display">$800</strong></label>
+                <input type="range" id="party-budget" name="budget" min="100" max="6000" step="50" value="800">
+              </div>
+            </div>
+
+            <div class="form-group full-width">
+              <label for="party-notes">Dietary & Entertainment Notes</label>
+              <textarea id="party-notes" name="dietary_notes" rows="2" placeholder="e.g. Vegetarian finger food options, custom cake, outdoor string lights."></textarea>
+            </div>
+
+            <button type="submit" class="submit-btn" id="btn-submit-party">
+              <span class="btn-text">Generate Event Breakdown</span>
+              <span class="btn-spinner hidden"></span>
+            </button>
+          </form>
+        </div>
+      </section>
+
+      <!-- 3. JEWELRY PLANNER (MULTIMODAL) -->
+      <section class="planner-section" id="section-jewelry" role="tabpanel" aria-labelledby="tab-jewelry">
+        <div class="form-card glass-panel">
+          <div class="card-header">
+            <h2>Jewelry & Outfit Harmonizer</h2>
+            <p>Upload an outfit photo or describe your ensemble to receive coordinated jewelry recommendations.</p>
+          </div>
+          <form id="form-jewelry" class="planner-form" enctype="multipart/form-data">
+            <div class="form-grid">
+              <div class="form-group">
+                <label for="jewelry-occasion">Occasion</label>
+                <select id="jewelry-occasion" name="occasion" required>
+                  <option value="Cocktail Evening" selected>Cocktail Evening</option>
+                  <option value="Wedding Reception">Wedding Reception</option>
+                  <option value="Formal Gala / Black Tie">Formal Gala / Black Tie</option>
+                  <option value="Festival / Cultural Celebration">Festival / Cultural Celebration</option>
+                  <option value="Date Night / Dinner">Date Night / Dinner</option>
+                  <option value="Corporate Executive">Corporate Executive</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="jewelry-metal">Preferred Metal / Gem</label>
+                <select id="jewelry-metal" name="metal_preference" required>
+                  <option value="Yellow Gold" selected>Yellow Gold</option>
+                  <option value="Rose Gold">Rose Gold</option>
+                  <option value="White Gold / Platinum">White Gold / Platinum</option>
+                  <option value="Sterling Silver">Sterling Silver</option>
+                  <option value="Diamond Accented">Diamond Accented</option>
+                </select>
+              </div>
+
+              <div class="form-group full-width">
+                <label for="jewelry-budget">Maximum Budget ($ USD): <strong id="jewelry-budget-display">$600</strong></label>
+                <input type="range" id="jewelry-budget" name="budget" min="50" max="8000" step="50" value="600">
+              </div>
+            </div>
+
+            <!-- Multimodal Outfit Upload Dropzone -->
+            <div class="form-group full-width">
+              <label>Outfit Photo (Multimodal Analysis)</label>
+              <div class="upload-dropzone" id="outfit-dropzone">
+                <input type="file" id="outfit-image-input" name="outfit_image" accept="image/png,image/jpeg,image/webp" class="file-input-hidden">
+                <div class="dropzone-content" id="dropzone-prompt">
+                  <div class="upload-icon">📸</div>
+                  <p class="upload-instruction"><strong>Click to upload</strong> or drag & drop outfit photo</p>
+                  <p class="upload-subtext">PNG, JPG, or WEBP up to 16MB. Gemini inspects neckline, fabrics & colors.</p>
+                </div>
+                <div class="dropzone-preview hidden" id="dropzone-preview">
+                  <img src="" alt="Outfit preview" id="preview-img">
+                  <div class="preview-actions">
+                    <span id="preview-filename">outfit.jpg</span>
+                    <button type="button" class="btn-remove-image" id="btn-remove-image">Remove</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group full-width">
+              <label for="jewelry-outfit-desc">Outfit Description / Details (Optional)</label>
+              <input type="text" id="jewelry-outfit-desc" name="outfit_description" placeholder="e.g. Emerald green satin slip dress with V-neckline">
+            </div>
+
+            <button type="submit" class="submit-btn" id="btn-submit-jewelry">
+              <span class="btn-text">Harmonize Jewelry Collection</span>
+              <span class="btn-spinner hidden"></span>
+            </button>
+          </form>
+        </div>
+      </section>
+
+      <!-- RESULTS CONTAINER (Shared Dynamic Display) -->
+      <section class="results-area hidden" id="results-area">
+        <!-- Results Loading State -->
+        <div class="loading-state hidden" id="loading-state">
+          <div class="ai-orb">
+            <div class="orb-ring"></div>
+            <div class="orb-core">✨</div>
+          </div>
+          <h3 id="loading-title">Gemini is curating your personalized plan...</h3>
+          <p id="loading-step">Analyzing budget constraints and querying catalog items...</p>
+        </div>
+
+        <!-- Rendered Results View -->
+        <div class="results-content hidden" id="results-content">
+          <!-- Overview Hero Banner -->
+          <div class="results-hero glass-panel">
+            <div class="hero-header">
+              <div class="hero-tag" id="result-badge-type">Plan Output</div>
+              <h2 id="result-title">Curated Plan Summary</h2>
+              <p id="result-summary" class="hero-description"></p>
+            </div>
+
+            <div class="budget-card">
+              <div class="budget-stat">
+                <span class="stat-label">Budget Limit</span>
+                <span class="stat-val" id="result-budget-limit">$0.00</span>
+              </div>
+              <div class="budget-divider"></div>
+              <div class="budget-stat highlight">
+                <span class="stat-label">Estimated Total</span>
+                <span class="stat-val" id="result-total-cost">$0.00</span>
+              </div>
+              <div class="budget-divider"></div>
+              <div class="budget-stat">
+                <span class="stat-label">Savings / Variance</span>
+                <span class="stat-val positive" id="result-savings">$0.00</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Contextual Meta Widget (Color Palette / Timeline / Outfit Analysis) -->
+          <div class="context-widget-grid" id="context-widget-grid">
+            <!-- Dynamically injected via JavaScript -->
+          </div>
+
+          <!-- Recommendations Grid -->
+          <div class="recommendations-container">
+            <div class="section-title-row">
+              <h3>Curated Recommendations (<span id="recommendation-count">0</span> items)</h3>
+              <span class="vendor-tag-badge">IKEA • Amazon • Zomato • Jewelry Brands</span>
+            </div>
+
+            <div class="recommendations-grid" id="recommendations-grid">
+              <!-- Dynamically populated product cards -->
+            </div>
+          </div>
+
+          <!-- Tips / Host Checklist Section -->
+          <div class="tips-container glass-panel" id="tips-container">
+            <h4 id="tips-title">💡 Expert Guidance & Checklist</h4>
+            <ul id="tips-list" class="checklist-items"></ul>
+          </div>
+
+          <!-- Results Actions -->
+          <div class="results-footer-actions">
+            <button class="action-btn secondary" id="btn-print-plan">🖨️ Print / Save PDF</button>
+            <button class="action-btn primary" id="btn-scroll-top">✏️ Edit Details & Refine</button>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="app-footer">
+      <p>© 2026 AI Multi-Planner Suite. Crafted with Flask, Google Gemini 1.5 Multimodal API & Modern Web Standards.</p>
+    </footer>
+  </div>
+
+  <script src="/static/js/home_planner.js"></script>
+  <script src="/static/js/party_planner.js"></script>
+  <script src="/static/js/jewelry_planner.js"></script>
+  <script src="/static/js/app.js"></script>
+</body>
+</html>
